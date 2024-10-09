@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -13,15 +14,13 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', function () {
     return view('users');
-})->name('users');
-
-Route::get('/accounts', function () {
-    return view('accounts');
-})->name('accounts');
+})->middleware(['auth', 'verified'])->name('users');
 
 Route::get('/permissions', function () {
     return view('permissions');
-})->name('permissions');
+})->middleware(['auth', 'verified'])->name('permissions');
+
+Route::resource('accounts', AccountController::class)->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
