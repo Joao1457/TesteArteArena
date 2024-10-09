@@ -7,11 +7,35 @@
                         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                             {{ __('Accounts') }}
                         </h2>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <a href="{{ route('accounts.create') }}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                             Adicionar Conta
-                        </button>
+                        </a>
                     </div>
                 </x-slot>
+                <!-- MENSAGEM DE ERRO DO BACK -->
+                @if (session('error'))
+                <div class="p-4 mb-4 text-lg text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">{{ session('error') }}</span>.
+                </div>
+                @endif
+
+                <!-- MENSAGEM DE SUCESSO DO BACK -->
+                @if (session('status'))
+                <div class="p-4 mb-4 text-lg text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium">{{ session('status') }}</span>
+                </div>
+                @endif
+
+                <!-- MENSAGEM DE ERROS DE VALIDAÇÃO -->
+                @if ($errors->any())
+                <div class="p-4 mb-4 text-lg text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li><span class="font-medium">{{ $error }}</span></li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <table class="table-auto mx-auto w-full text-center">
                         <thead>
@@ -33,8 +57,18 @@
                                 <td class="border px-4 py-2">{{$account->data_vencimento}}</td>
                                 <td class="border px-4 py-2">{{$account->status}}</td>
                                 <td class="border px-4 py-2">
-                                    <button class="bg-blue-500 text-white px-3 py-1 rounded">Editar</button>
-                                    <button class="bg-red-500 text-white px-3 py-1 rounded">Excluir</button>
+                                    <div class="flex justify-center space-x-2">
+                                        <a href="{{ route('accounts.edit', $account->id) }}" class="bg-blue-500 text-white px-3 py-2 rounded text-center">
+                                            Editar
+                                        </a>
+                                        <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" title="Excluir" onclick="return confirm('Tem certeza de que deseja excluir esta anotação?');" class="bg-red-500 text-white px-3 py-2 rounded">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

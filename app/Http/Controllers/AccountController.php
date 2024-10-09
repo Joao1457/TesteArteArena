@@ -24,7 +24,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('accounts.create');
     }
 
     /**
@@ -32,7 +32,38 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedAccount = $request->validate([
+            'titulo' => 'required|min:5|max:100',
+            'descricao' => 'required|max:499',
+            'valor' => 'required|numeric|min:0||max:1000000',
+            'data_vencimento' => 'required|date|date_format:Y-m-d',
+            'status' => 'required|in:pago,pendente',
+        ],[
+            // Retorno dos textos resultados de suas requisições
+            'titulo.required' => 'Informe o título da anotação.',
+            'titulo.min' =>'Insira no mínimo 5 caracteres para prosseguir!',
+            'titulo.max' =>'O limite máximo do titulo é de 100 caracteres!',
+            'descricao.required' => 'Insira uma descrição.',
+            'descricao.max' =>'O limite máximo da descrição é de 500 caracteres!',
+            'valor.required' => 'Digite o valor da conta!',
+            'valor.numeric' => 'Somente valores numéricos!',
+            'valor.min' =>'Digite um valor aceitável!',
+            'valor.max' =>'Digite um valor aceitável, abaixo de 1.000.000!',
+            'data_vencimento.required'=>'Insira uma data!',
+            'data_vencimento.date'=>'Insira uma data válida!',
+            'data_vencimento.date_format'=>'Insira um formato válido de data dd/mm/aaaa!',
+            'status.required' => 'É necessário inserir um status!',
+        ]);
+
+        try{
+            Account::create($validatedAccount);
+
+            session()->flash('status', 'Conta adicionada com sucesso!');
+            return redirect()->route('accounts.index');
+        }catch(\Exception $e){
+            session()->flash('error', 'Ocorreu um erro ao adicionar uma conta: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -48,7 +79,9 @@ class AccountController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = session('user');
+        $accounts = Account::findOrFail($id);
+        return view('accounts.edit', compact('accounts'));
     }
 
     /**
@@ -56,7 +89,40 @@ class AccountController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedAccount = $request->validate([
+            'titulo' => 'required|min:5|max:100',
+            'descricao' => 'required|max:499',
+            'valor' => 'required|numeric|min:0||max:1000000',
+            'data_vencimento' => 'required|date|date_format:Y-m-d',
+            'status' => 'required|in:pago,pendente',
+        ],[
+            // Retorno dos textos resultados de suas requisições
+            'titulo.required' => 'Informe o título da anotação.',
+            'titulo.min' =>'Insira no mínimo 5 caracteres para prosseguir!',
+            'titulo.max' =>'O limite máximo do titulo é de 100 caracteres!',
+            'descricao.required' => 'Insira uma descrição.',
+            'descricao.max' =>'O limite máximo da descrição é de 500 caracteres!',
+            'valor.required' => 'Digite o valor da conta!',
+            'valor.numeric' => 'Somente valores numéricos!',
+            'valor.min' =>'Digite um valor aceitável!',
+            'valor.max' =>'Digite um valor aceitável, abaixo de 1.000.000!',
+            'data_vencimento.required'=>'Insira uma data!',
+            'data_vencimento.date'=>'Insira uma data válida!',
+            'data_vencimento.date_format'=>'Insira um formato válido de data dd/mm/aaaa!',
+            'status.required' => 'É necessário inserir um status!',
+        ]);
+
+        try{
+            $user = session('user');
+            $accounts = Account::findOrFail($id);
+            $accounts->update($validatedAccount);
+
+            session()->flash('status', 'Conta modificada com sucesso!');
+            return redirect()->route('accounts.index');
+        }catch(\Exception $e){
+            session()->flash('error', 'Ocorreu um erro ao editar a conta: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -64,6 +130,14 @@ class AccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $accounts = Account::findOrFail($id);
+            $accounts->delete();
+            session()->flash('status', 'Anotação excluída com sucesso!');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            session()->flash('error', 'Ocorreu um erro ao excluir a anotação: ' . $e->getMessage());
+            return redirect()->back();
+        }
     }
 }
