@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\User;
 
 
 
@@ -18,7 +19,7 @@ class AccountController extends Controller
         $user = session('user');
         $accounts = Account::all();
         // dd($accounts);
-        return view('accounts.index', compact('accounts'));
+        return view('accounts.index', compact('accounts','user'));
     }
 
     /**

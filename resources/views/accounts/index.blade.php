@@ -49,6 +49,7 @@
                             </tr>
                         </thead>
                         @foreach ($accounts as $account)
+                        @can('show' ,$account)
                         <tbody>
                             <tr>
                                 <td class="border px-4 py-2">{{ $account->titulo }}</td>
@@ -72,6 +73,7 @@
                                 </td>
                             </tr>
                         </tbody>
+                        @endcan
                         @endforeach
                     </table>
                 </div>
