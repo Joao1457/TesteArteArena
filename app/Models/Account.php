@@ -11,6 +11,11 @@ class Account extends Model
 
     protected $table = 'accounts';
 
-    protected $fillable = ['titulo', 'descricao', 'valor', 'data_vencimento', 'status'];
+    protected $fillable = ['titulo', 'descricao', 'valor', 'data_vencimento', 'status','user.id',];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
 }
+

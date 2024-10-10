@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('valor', 10, 2);
             $table->date('data_vencimento');
             $table->enum('status', ['pago', 'pendente']);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

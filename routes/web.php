@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,13 +13,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/users', function () {
-    return view('users');
-})->middleware(['auth', 'verified'])->name('users');
+Route::get('/users', [UserController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('users');
 
-Route::get('/permissions', function () {
-    return view('permissions');
-})->middleware(['auth', 'verified'])->name('permissions');
+Route::post('/users/update-roles', [UserController::class, 'updateRoles'])
+    ->middleware(['auth', 'verified'])
+    ->name('users.updateRoles');
 
 Route::resource('accounts', AccountController::class)->middleware(['auth', 'verified']);
 

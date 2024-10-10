@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Account;
+
 
 
 class AccountController extends Controller
@@ -56,7 +58,9 @@ class AccountController extends Controller
         ]);
 
         try{
-            Account::create($validatedAccount);
+            $account = new Account($validatedAccount);
+            $account->user_id = Auth::id();
+            $account->save();
 
             session()->flash('status', 'Conta adicionada com sucesso!');
             return redirect()->route('accounts.index');
