@@ -21,7 +21,7 @@ class AccountFactory extends Factory
             'titulo' => $this->faker->sentence(3),
             'descricao' => $this->faker->text(100),
             'valor' => $this->faker->randomFloat(2, 50, 1000),
-            'data_vencimento' => $this->faker->date(),
+            'data_vencimento' => $this->faker->date('Y-m-d'),
             'status' => $this->faker->randomElement(['pago', 'pendente']),
             'user_id' => User::factory(),
         ];
