@@ -57,11 +57,11 @@
                 <label for="data_vencimento" class="block text-gray-900 dark:text-gray-100 text-sm font-bold mb-2">Data de Vencimento*</label>
                 <input type="date" pattern="\d{2}/\d{2}/\d{4}" name="data_vencimento" id="data_vencimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('data_vencimento', $accounts->data_vencimento)}}">
             </div>
-
             <div class="mb-4">
                 <label for="status" class="block text-gray-900 dark:text-gray-100 text-sm font-bold mb-2">Status*</label>
                 <select name="status" id="status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('status', $accounts->status)}}">
-                    <option value="pago">Pago</option>
+                <option value="{{ old('status', $accounts->status)}}">{{ old('status', $accounts->status)}} - selecionado</option>
+                <option value="pago">Pago</option>
                     <option value="pendente">Pendente</option>
                 </select>
             </div>
