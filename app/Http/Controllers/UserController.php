@@ -13,6 +13,7 @@ class UserController extends Controller
         return view('users',compact('users'));
     }
 
+    //função para mudar a role do usuario de admin para basic ou o contrario
     public function updateRoles(Request $request){
 
         $roles = $request->input('role');

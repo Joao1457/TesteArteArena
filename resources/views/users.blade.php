@@ -9,6 +9,7 @@
                         <span class="font-medium">{{ session('status') }}</span>
                     </div>
                     @endif
+                    <!-- Tabela do gerenciamento de usuarios -->
                     <div class="overflow-y-auto max-h-screen">
                         <table class="table-auto mx-auto w-full text-center">
                             <thead>

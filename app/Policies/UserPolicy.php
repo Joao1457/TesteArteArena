@@ -13,7 +13,7 @@ class UserPolicy
     {
         //
     }
-
+    //policie para checar se o usuario esta como admin na role
     public function isAdmin(User $user){
         return $user->role == 'admin';
     }

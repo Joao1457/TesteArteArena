@@ -33,6 +33,7 @@
         </div>
         @endif
 
+        <!-- formulário de edição, trazendo os dados do banco baseado no id do usuario logado -->
         <form action="{{ route('accounts.update', $accounts->id) }}" method="POST" class="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}

@@ -51,6 +51,7 @@
                                 <th scope="col" class="px-4 py-2">Ações</th>
                             </tr>
                         </thead>
+                        <!-- abaixo o trecho referente ao conteudo das tabelas  -->
                         @foreach ($accounts as $account)
                         @can('show' ,$account)
                         <tbody>

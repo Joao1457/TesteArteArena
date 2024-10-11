@@ -14,7 +14,7 @@ use App\Models\User;
  */
 class AccountFactory extends Factory
 {
-
+    //factory para definir os molds dos seeds criados
     public function definition(): array
     {
         return [

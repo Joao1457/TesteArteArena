@@ -68,7 +68,7 @@
         }
     </style>
 </head>
-
+<!-- home que será o primeiro contato do usuario com a aplicação -->
 <body>
     <div class="container">
         <div class="card shadow">

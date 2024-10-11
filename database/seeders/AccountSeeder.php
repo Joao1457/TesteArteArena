@@ -18,6 +18,7 @@ class AccountSeeder extends Seeder
         //senha do users fake são password
         $users = User::factory(10)->create();
 
+        //usuario base com a role de admin setada
         User::factory()->create([
             'name' => 'João Paulo ADM',
             'email' => 'dewitt5609@uorak.com',
@@ -25,6 +26,7 @@ class AccountSeeder extends Seeder
             'password' => Hash::make('37715762'),
         ]);
 
+        //foreach para percorrer todos os usuarios e criar as contas
         foreach (User::all() as $user) {
             Account::factory(10)->create([
                 'user_id' => $user->id,

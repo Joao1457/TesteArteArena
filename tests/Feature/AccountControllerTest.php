@@ -12,6 +12,7 @@ class AccountControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+
     public function test_it_displays_accounts_index(): void
     {
         $user = User::factory()->create();

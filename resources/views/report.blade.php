@@ -8,6 +8,7 @@
                     </h2>
                 </div>
             </x-slot>
+            <!-- Tabela trazendo tudo referente ao usuario -->
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 @if ($accounts->isEmpty())
                 <p class="text-center text-gray-500">Nenhuma conta encontrada para este usuário.</p>
