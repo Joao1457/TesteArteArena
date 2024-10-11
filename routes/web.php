@@ -13,6 +13,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::get('/users', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('users');

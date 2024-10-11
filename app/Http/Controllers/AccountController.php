@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 
 
@@ -76,7 +77,12 @@ class AccountController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $user = User::with('accounts')->findOrFail($id);
+
+        $accounts = Account::where('user_id', $id)->get();
+
+        return view('report', compact('user','accounts'));
     }
 
     /**

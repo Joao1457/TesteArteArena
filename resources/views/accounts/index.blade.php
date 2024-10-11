@@ -36,7 +36,7 @@
                     </ul>
                 </div>
                 @endif
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-y-auto max-h-screen p-6 text-gray-900 dark:text-gray-100">
                     <table class="table-auto mx-auto w-full text-center">
                         <thead>
                             <tr>
@@ -45,6 +45,9 @@
                                 <th scope="col" class="px-4 py-2">Valor</th>
                                 <th scope="col" class="px-4 py-2">Vencimento</th>
                                 <th scope="col" class="px-4 py-2">Status</th>
+                                @can('isAdmin', auth()->user())
+                                <th scope="col" class="px-4 py-2">Criado por</th>
+                                @endcan
                                 <th scope="col" class="px-4 py-2">Ações</th>
                             </tr>
                         </thead>
@@ -57,6 +60,9 @@
                                 <td class="border px-4 py-2">{{$account->valor}}</td>
                                 <td class="border px-4 py-2">{{$account->data_vencimento}}</td>
                                 <td class="border px-4 py-2">{{$account->status}}</td>
+                                @can('isAdmin', auth()->user())
+                                <td class="border px-4 py-2">{{ $account->user->name }}</td>
+                                @endcan
                                 <td class="border px-4 py-2">
                                     <div class="flex justify-center space-x-2">
                                         <a href="{{ route('accounts.edit', $account->id) }}" class="bg-blue-500 text-white px-3 py-2 rounded text-center">
