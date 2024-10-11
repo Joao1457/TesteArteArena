@@ -1,4 +1,5 @@
 <x-app-layout>
+    @can('isAdmin', auth()->user())
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-slot name="header">
@@ -45,4 +46,5 @@
             </div>
         </div>
     </div>
+    @endcan
 </x-app-layout>
