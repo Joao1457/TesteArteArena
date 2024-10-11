@@ -44,7 +44,7 @@ class AccountController extends Controller
             'status' => 'required|in:pago,pendente',
         ],[
             // Retorno dos textos resultados de suas requisições
-            'titulo.required' => 'Informe o título da anotação.',
+            'titulo.required' => 'Informe o título da conta.',
             'titulo.min' =>'Insira no mínimo 5 caracteres para prosseguir!',
             'titulo.max' =>'O limite máximo do titulo é de 100 caracteres!',
             'descricao.required' => 'Insira uma descrição.',
@@ -108,7 +108,7 @@ class AccountController extends Controller
             'status' => 'required|in:pago,pendente',
         ],[
             // Retorno dos textos resultados de suas requisições
-            'titulo.required' => 'Informe o título da anotação.',
+            'titulo.required' => 'Informe o título da conta.',
             'titulo.min' =>'Insira no mínimo 5 caracteres para prosseguir!',
             'titulo.max' =>'O limite máximo do titulo é de 100 caracteres!',
             'descricao.required' => 'Insira uma descrição.',
@@ -144,7 +144,7 @@ class AccountController extends Controller
         try {
             $accounts = Account::findOrFail($id);
             $accounts->delete();
-            session()->flash('status', 'Anotação excluída com sucesso!');
+            session()->flash('status', 'Conta excluída com sucesso!');
             return redirect()->back();
         } catch (\Exception $e) {
             session()->flash('error', 'Ocorreu um erro ao excluir a conta. Por favor, tente novamente.');

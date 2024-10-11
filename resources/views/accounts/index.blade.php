@@ -72,7 +72,7 @@
                                         <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" title="Excluir" onclick="return confirm('Tem certeza de que deseja excluir esta anotação?');" class="bg-red-500 text-white px-3 py-2 rounded">
+                                            <button type="submit" title="Excluir" onclick="return confirm('Tem certeza de que deseja excluir esta conta?');" class="bg-red-500 text-white px-3 py-2 rounded">
                                                 Excluir
                                             </button>
                                         </form>
