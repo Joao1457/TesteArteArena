@@ -17,7 +17,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $user = session('user');
+        $user = Auth::user();
         $accounts = Account::all();
         // dd($accounts);
         return view('accounts.index', compact('accounts','user'));
@@ -67,7 +67,7 @@ class AccountController extends Controller
             session()->flash('status', 'Conta adicionada com sucesso!');
             return redirect()->route('accounts.index');
         }catch(\Exception $e){
-            session()->flash('error', 'Ocorreu um erro ao adicionar uma conta: ' . $e->getMessage());
+            session()->flash('error', 'Ocorreu um erro ao adicionar a conta. Por favor, tente novamente.');
             return redirect()->back()->withInput();
         }
     }
@@ -90,7 +90,7 @@ class AccountController extends Controller
      */
     public function edit(string $id)
     {
-        $user = session('user');
+        $user = Auth::user();
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }
@@ -124,14 +124,14 @@ class AccountController extends Controller
         ]);
 
         try{
-            $user = session('user');
+            $user = Auth::user();
             $accounts = Account::findOrFail($id);
             $accounts->update($validatedAccount);
 
             session()->flash('status', 'Conta modificada com sucesso!');
             return redirect()->route('accounts.index');
         }catch(\Exception $e){
-            session()->flash('error', 'Ocorreu um erro ao editar a conta: ' . $e->getMessage());
+            session()->flash('error', 'Ocorreu um erro ao editar a conta. Por favor, tente novamente.');
             return redirect()->back()->withInput();
         }
     }
@@ -147,7 +147,7 @@ class AccountController extends Controller
             session()->flash('status', 'Anotação excluída com sucesso!');
             return redirect()->back();
         } catch (\Exception $e) {
-            session()->flash('error', 'Ocorreu um erro ao excluir a anotação: ' . $e->getMessage());
+            session()->flash('error', 'Ocorreu um erro ao excluir a conta. Por favor, tente novamente.');
             return redirect()->back();
         }
     }

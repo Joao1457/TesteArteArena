@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Account;
+use App\Models\User;
 
 class AccountSeeder extends Seeder
 {
@@ -13,14 +15,21 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
-        Account::create([
-            'titulo' => 'Conta de Luz',
-            'descricao' => 'Conta de energia elétrica',
-            'valor' => 150.75,
-            'data_vencimento' => '2024-10-15',
-            'status' => 'pago',
-        ],
-    );
+        //senha do users fake são password
+        $users = User::factory(10)->create();
+
+        User::factory()->create([
+            'name' => 'João Paulo ADM',
+            'email' => 'dewitt5609@uorak.com',
+            'role' => 'admin',
+            'password' => Hash::make('37715762'),
+        ]);
+
+        foreach (User::all() as $user) {
+            Account::factory(10)->create([
+                'user_id' => $user->id,
+            ]);
+        }
 
 
     }
